@@ -58,25 +58,25 @@
 
 // Ejemplo 3
 
-// const getUsers = url => {
-//   fetch(url)
-//     .then(data => data.json())
-//     .then(users => console.log(users))
-//     .catch(error => console.log(error));
-// };
+const getUsers = url => {
+  fetch(url)
+    .then(response => response.json())
+    .then(users => console.log(users))
+    .catch(error => console.log(error));
+};
 
-// getUsers('https://jsonplaceholder.typicode.com/users');
+getUsers('https://jsonplaceholder.typicode.com/users');
 
 // Ejemplo 4
 
-// const getUsers = async url => {
-//   try {
-//     const response = await fetch(url);
-//     const data = await response.json();
-//     console.log(data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const getUsers2 = async url => {
+  try {
+    const response = await fetch(url);
+    const users = await response.json();
+    console.log(users);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// getUsers('https://jsonplaceholder.typicode.com/users');
+getUsers2('https://jsonplaceholder.typicode.com/users');
