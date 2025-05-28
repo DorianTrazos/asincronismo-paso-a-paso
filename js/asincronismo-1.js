@@ -1,6 +1,6 @@
 // Ejemplo 1
 
-// setTimeout(() => console.log('ASINCRONO'), 1000);
+// setTimeout(() => console.log('ASINCRONO'), 0);
 // console.log(1);
 // console.log(2);
 // console.log(3);
@@ -98,35 +98,35 @@ Añade simulación de errores
   Ejemplo 4 Unifica las funciones
 */
 
-// const realizarTarea = (tarea, siguienteTarea, printError) => {
+// const realizarTarea = (tarea, siguienteTarea) => {
 //   setTimeout(() => {
 //     console.log(tarea);
-//     if (Math.random() < 0.1) {
-//       printError(`Error al ${tarea.toLowerCase()}`);
+//     if (Math.random() < 0.5) {
+//       console.error(`Error al ${tarea.toLowerCase()}`);
 //     } else {
 //       siguienteTarea();
 //     }
 //   }, 1000);
 // };
 
-// const prepararIngredientes = (next, handleError) => {
-//   realizarTarea('Preparar ingredientes', next, handleError);
+// const prepararIngredientes = next => {
+//   realizarTarea('Preparar ingredientes', next);
 // };
 
-// const mezclarIngredientes = (next, handleError) => {
-//   realizarTarea('Mezclar ingredientes', next, handleError);
+// const mezclarIngredientes = next => {
+//   realizarTarea('Mezclar ingredientes', next);
 // };
 
-// const reposarMasa = (next, handleError) => {
-//   realizarTarea('Reposar masa', next, handleError);
+// const reposarMasa = next => {
+//   realizarTarea('Reposar masa', next);
 // };
 
-// const freírTortitas = (next, handleError) => {
-//   realizarTarea('Freír tortitas', next, handleError);
+// const freírTortitas = next => {
+//   realizarTarea('Freír tortitas', next);
 // };
 
-// const servirTortitas = handleError => {
-//   realizarTarea('¡TORTITAS LISTAS!', handleError);
+// const servirTortitas = () => {
+//   realizarTarea('¡TORTITAS LISTAS!');
 // };
 
 // const prepararTortitas = () => {
@@ -135,10 +135,10 @@ Añade simulación de errores
 //       reposarMasa(() => {
 //         freírTortitas(() => {
 //           servirTortitas(() => console.error);
-//         }, console.error);
-//       }, console.error);
-//     }, console.error);
-//   }, console.error);
+//         });
+//       });
+//     });
+//   });
 // };
 
 // prepararTortitas();
@@ -151,7 +151,7 @@ Añade simulación de errores
 //   return new Promise((resolve, reject) => {
 //     console.log(tarea);
 //     setTimeout(() => {
-//       if (Math.random() < 0.1) {
+//       if (Math.random() < 0.3) {
 //         reject(new Error(`Error en ${tarea}`));
 //       } else {
 //         resolve();
@@ -163,10 +163,10 @@ Añade simulación de errores
 // const prepararTortitas = () => {
 //   realizarTarea('Preparar ingredientes')
 //     .then(() => realizarTarea('Mezclar ingredientes'))
-//     .then(() => realizarTarea('Freir tortitas'))
 //     .then(() => realizarTarea('Servir tortitas'))
 //     .then(() => console.log('TORTITAS LISTAS!!'))
-//     .catch(error => console.log(error));
+//     .then(() => realizarTarea('Freir tortitas'))
+//     .catch(error => console.err(error));
 // };
 
 // prepararTortitas();
@@ -189,11 +189,15 @@ Añade simulación de errores
 // };
 
 // const prepararTortitas = async () => {
-//   await realizarTarea('Preparar ingredientes');
-//   await realizarTarea('Mezclar ingredientes');
-//   await realizarTarea('Freir tortitas');
-//   await realizarTarea('Servir tortitas');
-//   console.log('TORTITAS LISTAS!!');
+//   try {
+//     await realizarTarea('Preparar ingredientes');
+//     await realizarTarea('Mezclar ingredientes');
+//     await realizarTarea('Freir tortitas');
+//     await realizarTarea('Servir tortitas');
+//     console.log('TORTITAS LISTAS!!');
+//   } catch (error) {
+//     console.error(error);
+//   }
 // };
 
 // prepararTortitas();
